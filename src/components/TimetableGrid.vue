@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = defineProps({
   days: { type: Array, required: true },
@@ -12,7 +12,18 @@ const props = defineProps({
   showHint: { type: Boolean, default: false }
 })
 
-defineEmits(['create', 'select', 'sample'])
+const emit = defineEmits(['create', 'select', 'sample'])
+
+// 浏览模式下点块可展开/收起（地点或课程名被截断时看全文）
+const expandedKey = ref('')
+
+function onBlockClick(block) {
+  if (props.editable) {
+    emit('select', block)
+    return
+  }
+  expandedKey.value = expandedKey.value === block.key ? '' : block.key
+}
 
 const visibleBlocks = computed(() => {
   const maxSpan = props.periods.length
@@ -88,9 +99,9 @@ function cardStyle(block) {
         v-for="block in visibleBlocks"
         :key="block.key"
         class="block"
-        :class="{ dense: block.lanes > 1 }"
+        :class="{ dense: block.lanes > 1, expanded: expandedKey === block.key }"
         :style="blockStyle(block)"
-        @click.stop="editable && $emit('select', block)"
+        @click.stop="onBlockClick(block)"
       >
         <div class="bcard" :style="cardStyle(block)">
           <div class="bname">{{ block.name }}</div>

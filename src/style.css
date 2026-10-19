@@ -524,6 +524,40 @@ html[data-theme='dark'] .block:hover .bcard {
   pointer-events: auto;
 }
 
+/* 浏览模式：点块展开全文，再点收起 */
+.block.expanded {
+  z-index: 6;
+}
+
+.block.expanded .bcard {
+  bottom: auto;
+  min-height: calc(100% - 6px);
+  max-height: 340px;
+  box-shadow: 0 12px 26px -12px rgba(20, 30, 60, 0.45);
+}
+
+.block.expanded .bname {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.block.expanded .bmeta {
+  display: block;
+  -webkit-line-clamp: unset;
+  white-space: normal;
+  overflow: visible;
+}
+
+html[data-theme='dark'] .block.expanded .bcard {
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.9);
+}
+
+/* 浏览模式下块可点（展开/收起） */
+.app.browse .block .bcard {
+  cursor: pointer;
+}
+
 /* 无固定时段的课程分组（网格下方） */
 .unscheduled {
   margin-top: 12px;
@@ -1211,6 +1245,14 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
 
   .bmeta {
     font-size: 9px;
+    line-height: 1.15;
+    /* 手机列窄：地点换行显示，最多两行，超出再截断 */
+    white-space: normal;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 
   .cl-grid {
