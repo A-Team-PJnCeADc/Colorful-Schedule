@@ -1,0 +1,11 @@
+.idea/
+node_modules/
+dist/
+shots/
+tmp/
+.DS_Store
+*.local
+# 本地私有课表，不入库；公开构建时用 src/data/examplemyschedule.json
+/src/data/mySchedule.json
+/*课表.json
+/src/data/mySchedule.enc.json

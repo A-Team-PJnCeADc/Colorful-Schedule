@@ -1,0 +1,253 @@
+{
+  "version": 1,
+  "uuid": "uqefhvh2jspqrnh3",
+  "settings": {
+    "totalWeeks": 20,
+    "startDate": "2026-09-07",
+    "periods": [
+      {
+        "start": "08:00",
+        "end": "08:45"
+      },
+      {
+        "start": "08:50",
+        "end": "09:35"
+      },
+      {
+        "start": "09:50",
+        "end": "10:35"
+      },
+      {
+        "start": "10:40",
+        "end": "11:25"
+      },
+      {
+        "start": "11:30",
+        "end": "12:15"
+      },
+      {
+        "start": "13:30",
+        "end": "14:15"
+      },
+      {
+        "start": "14:20",
+        "end": "15:05"
+      },
+      {
+        "start": "15:20",
+        "end": "16:05"
+      },
+      {
+        "start": "16:10",
+        "end": "16:55"
+      },
+      {
+        "start": "17:00",
+        "end": "17:45"
+      },
+      {
+        "start": "19:00",
+        "end": "19:45"
+      },
+      {
+        "start": "19:50",
+        "end": "20:35"
+      }
+    ],
+    "showWeekend": "always",
+    "theme": "auto",
+    "hideEmptyRows": true
+  },
+  "courses": [
+    {
+      "id": "e01",
+      "name": "高等数学 A",
+      "teacher": "示例教师",
+      "room": "教1-301",
+      "color": "#4C6EF5",
+      "sessions": [
+        {
+          "day": 1,
+          "period": 1,
+          "span": 2,
+          "weeks": "1-16"
+        },
+        {
+          "day": 3,
+          "period": 1,
+          "span": 2,
+          "weeks": "1-16"
+        }
+      ]
+    },
+    {
+      "id": "e02",
+      "name": "大学物理",
+      "teacher": "示例教师",
+      "room": "理科楼B203",
+      "color": "#2D9CDB",
+      "sessions": [
+        {
+          "day": 2,
+          "period": 3,
+          "span": 2,
+          "weeks": "1-16"
+        },
+        {
+          "day": 4,
+          "period": 3,
+          "span": 2,
+          "weeks": "1-8"
+        }
+      ]
+    },
+    {
+      "id": "e03",
+      "name": "程序设计基础",
+      "teacher": "示例教师",
+      "room": "机房A-402",
+      "color": "#27AE60",
+      "sessions": [
+        {
+          "day": 1,
+          "period": 5,
+          "span": 2,
+          "weeks": "1-16"
+        }
+      ]
+    },
+    {
+      "id": "e04",
+      "name": "数据结构",
+      "teacher": "示例教师",
+      "room": "教2-105",
+      "color": "#BB6BD9",
+      "sessions": [
+        {
+          "day": 3,
+          "period": 5,
+          "span": 2,
+          "weeks": "1-16"
+        },
+        {
+          "day": 4,
+          "period": 5,
+          "span": 2,
+          "weeks": "9-16"
+        }
+      ]
+    },
+    {
+      "id": "e05",
+      "name": "大学英语",
+      "teacher": "示例教师",
+      "room": "外语楼302",
+      "color": "#F2994A",
+      "sessions": [
+        {
+          "day": 2,
+          "period": 1,
+          "span": 2,
+          "weeks": "1-16"
+        },
+        {
+          "day": 5,
+          "period": 1,
+          "span": 2,
+          "weeks": "1-16"
+        }
+      ]
+    },
+    {
+      "id": "e06",
+      "name": "线性代数",
+      "teacher": "示例教师",
+      "room": "教1-208",
+      "color": "#9B51E0",
+      "sessions": [
+        {
+          "day": 5,
+          "period": 5,
+          "span": 2,
+          "weeks": "1-12"
+        }
+      ]
+    },
+    {
+      "id": "e07",
+      "name": "概率论与数理统计",
+      "teacher": "示例教师",
+      "room": "教1-210",
+      "color": "#00A3A3",
+      "sessions": [
+        {
+          "day": 4,
+          "period": 7,
+          "span": 2,
+          "weeks": "1-16"
+        }
+      ]
+    },
+    {
+      "id": "e08",
+      "name": "思想道德与法治",
+      "teacher": "示例教师",
+      "room": "文科楼101",
+      "color": "#EB5757",
+      "sessions": [
+        {
+          "day": 1,
+          "period": 7,
+          "span": 2,
+          "weeks": "1-8"
+        },
+        {
+          "day": 1,
+          "period": 7,
+          "span": 2,
+          "weeks": "9-16"
+        }
+      ]
+    },
+    {
+      "id": "e09",
+      "name": "体育（篮球）",
+      "teacher": "示例教师",
+      "room": "东区球场",
+      "color": "#3FA87A",
+      "sessions": [
+        {
+          "day": 2,
+          "period": 7,
+          "span": 2,
+          "weeks": "1-16"
+        }
+      ]
+    },
+    {
+      "id": "e10",
+      "name": "中国近现代史纲要",
+      "teacher": "示例教师",
+      "room": "教3-201",
+      "color": "#EF6FA8",
+      "sessions": [
+        {
+          "day": 5,
+          "period": 3,
+          "span": 2,
+          "weeks": "1-10"
+        }
+      ]
+    },
+    {
+      "id": "e11",
+      "name": "工程训练（实践）",
+      "teacher": "示例教师",
+      "room": "",
+      "color": "#7A869A",
+      "category": "实践课程",
+      "note": "17-18周 · 共2周",
+      "sessions": []
+    }
+  ]
+}
