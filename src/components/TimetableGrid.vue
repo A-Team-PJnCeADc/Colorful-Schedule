@@ -82,7 +82,7 @@ function cardStyle(block) {
         >
           <span v-if="groupLabels[p.n]" class="ppart">{{ groupLabels[p.n] }}</span>
           <span class="pnum">{{ p.n }}</span>
-          <span class="ptime">{{ p.start }}–{{ p.end }}</span>
+          <span class="ptime"><span class="t1">{{ p.start }}</span><span class="tsep">–</span><span class="t2">{{ p.end }}</span></span>
         </div>
 
         <div

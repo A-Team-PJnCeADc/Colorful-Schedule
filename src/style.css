@@ -382,6 +382,10 @@ button {
   white-space: nowrap;
 }
 
+.time-cell .ptime .t2 {
+  display: inline;
+}
+
 .time-cell.now {
   background: var(--brand-soft);
   box-shadow: inset 3px 0 0 var(--brand);
@@ -526,7 +530,7 @@ html[data-theme='dark'] .block:hover .bcard {
 
 /* 浏览模式：点块展开全文，再点收起 */
 .block.expanded {
-  z-index: 6;
+  z-index: 4;
 }
 
 .block.expanded .bcard {
@@ -1153,12 +1157,12 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
 /* 手机 */
 @media (max-width: 640px) {
   :root {
-    --row-h: 54px;
-    --time-col: 40px;
+    --row-h: 58px;
+    --time-col: 44px;
     --head-h: 40px;
   }
 
-  /* 有周末课时 7 列塞不下，允许横向滚动，节次列吸左 */
+  /* 有周末课时 7 列塞不下，允许横向滚动；节次列吸左且压在上层，日头从下面滑过 */
   .grid-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -1172,11 +1176,15 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
   .corner {
     position: sticky;
     left: 0;
-    z-index: 2;
+    z-index: 6;
   }
 
   .corner {
-    z-index: 4;
+    z-index: 7;
+  }
+
+  .day-head {
+    z-index: 3;
   }
 
   .app {
@@ -1229,7 +1237,18 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
   }
 
   .time-cell .ptime {
-    display: none;
+    display: block;
+    width: 100%;
+    font-size: 8.5px;
+    line-height: 1.15;
+    text-align: center;
+    letter-spacing: -0.15px;
+    white-space: normal;
+  }
+
+  /* 手机列窄：结束时间换到第二行，显示成 10:40– / 11:25 */
+  .time-cell .ptime .t2 {
+    display: block;
   }
 
   .bcard {
