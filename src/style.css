@@ -343,7 +343,6 @@ button {
   position: sticky;
   top: 0;
   z-index: 3;
-  backdrop-filter: blur(6px);
 }
 
 .day-head .ddate {
@@ -560,6 +559,17 @@ html[data-theme='dark'] .block.expanded .bcard {
 /* 浏览模式下块可点（展开/收起） */
 .app.browse .block .bcard {
   cursor: pointer;
+}
+
+/* 解密期间的占位，避免先渲染示例再整体重绘 */
+.boot {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--fg-3);
+  font-size: 13px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
 
 /* 无固定时段的课程分组（网格下方） */
@@ -1154,6 +1164,80 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
   opacity: 0;
 }
 
+/* 老内核（X5 / QQ 内置浏览器）：去掉吸顶与滤镜，降低滚动开销 */
+html.lite .day-head,
+html.lite .time-cell,
+html.lite .corner {
+  position: static;
+}
+
+html.lite .day-head,
+html.lite .overlay,
+html.lite .empty-hint {
+  backdrop-filter: none;
+}
+
+html.lite .grid-wrap,
+html.lite .bcard,
+html.lite .cl-card,
+html.lite .modal,
+html.lite .unscheduled {
+  box-shadow: none;
+}
+
+html.lite .grid-wrap {
+  -webkit-overflow-scrolling: auto;
+}
+
+html.lite .bcard,
+html.lite .block,
+html.lite .slot {
+  transition: none;
+}
+
+/* 不支持 color-mix 的内核：用基础色 + 半透明蒙层代替混色 */
+html.no-mix .bcard {
+  background-color: var(--c);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86));
+}
+
+html.no-mix[data-theme='dark'] .bcard {
+  background-image: linear-gradient(rgba(17, 20, 26, 0.8), rgba(17, 20, 26, 0.8));
+}
+
+html.no-mix .bname,
+html.no-mix .cl-name {
+  color: var(--fg);
+}
+
+html.no-mix .bmeta {
+  color: var(--fg-2);
+}
+
+html.no-mix .ts-chip,
+html.no-mix .us-chip {
+  background: rgba(76, 110, 245, 0.08);
+  border-color: var(--line-strong);
+  color: var(--fg);
+}
+
+html.no-mix .slot:hover {
+  background: rgba(76, 110, 245, 0.06);
+}
+
+html.no-mix .time-cell.group-start,
+html.no-mix .slot.group-start {
+  border-top-color: var(--line-strong);
+}
+
+html.no-mix .mode-btn.on {
+  border-color: var(--brand);
+}
+
+html.no-mix .empty-hint {
+  background: var(--card);
+}
+
 /* 手机 */
 @media (max-width: 640px) {
   :root {
@@ -1162,14 +1246,13 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
     --head-h: 40px;
   }
 
-  /* 有周末课时 7 列塞不下，允许横向滚动；节次列吸左且压在上层，日头从下面滑过 */
+  /* 7 列按可用宽度铺满（列宽下限 42px），极窄屏放不下时才横向滚动 */
   .grid-wrap {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 
   .grid {
-    min-width: calc(var(--time-col) + var(--days) * 54px);
+    min-width: calc(var(--time-col) + var(--days) * 42px);
   }
 
   .time-cell,
@@ -1258,7 +1341,8 @@ html[data-theme='dark'] .app.browse .block:hover .bcard {
   }
 
   .bname {
-    font-size: 10.5px;
+    font-size: 9.5px;
+    line-height: 1.2;
     -webkit-line-clamp: 4;
   }
 

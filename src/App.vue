@@ -38,6 +38,8 @@ const isPrivate = ref(false)
 const title = computed(() => (isPrivate.value ? '我的课表' : '示例数据'))
 const now = ref(new Date())
 const toastText = ref('')
+const booting = ref(Boolean(ENCRYPTED_SEED && readUuidParam()))
+const hasKeyParam = Boolean(readUuidParam())
 const settingsOpen = ref(false)
 const settingsDraft = ref(null)
 const editor = reactive({ open: false, draft: null, isNew: false })
@@ -160,6 +162,8 @@ async function initSecureSeed() {
   } catch (err) {
     console.warn(err)
     toast('密钥不正确，已显示示例课表')
+  } finally {
+    booting.value = false
   }
 }
 
@@ -407,7 +411,14 @@ onMounted(() => {
   systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
   systemThemeQuery.addEventListener('change', onSystemThemeChange)
   window.addEventListener('keydown', onKeydown)
-  initSecureSeed()
+  if (hasKeyParam) {
+    // 首帧画完再解密，避免解密与首屏渲染抢主线程
+    requestAnimationFrame(() => {
+      const run = () => initSecureSeed()
+      if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 1500 })
+      else setTimeout(run, 80)
+    })
+  }
 })
 
 onBeforeUnmount(() => {
@@ -512,7 +523,8 @@ watch(
     </div>
 
     <main>
-      <template v-if="view === 'grid'">
+      <div v-if="booting" class="boot">正在解密课表…</div>
+      <template v-else-if="view === 'grid'">
         <TimetableGrid
           :days="days"
           :periods="rows"
