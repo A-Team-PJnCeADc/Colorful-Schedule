@@ -487,6 +487,10 @@ html[data-theme='dark'] .block:hover .bcard {
   text-overflow: ellipsis;
 }
 
+.bmeta .rp {
+  display: inline;
+}
+
 /* 同格并排（单双周/冲突）时空间更窄，优先保证课程名 */
 .block.dense .bmeta {
   display: none;
@@ -1349,13 +1353,22 @@ html.no-mix .empty-hint {
   .bmeta {
     font-size: 9px;
     line-height: 1.15;
-    /* 手机列窄：地点换行显示，最多两行，超出再截断 */
+    /* 手机列窄：楼名 / 房号前缀 / 房号 各占一行，最多三行 */
     white-space: normal;
-    word-break: break-all;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    word-break: normal;
+    overflow-wrap: anywhere;
+    display: block;
+    max-height: calc(3 * 1.15em);
     overflow: hidden;
+  }
+
+  .bmeta .rp {
+    display: block;
+  }
+
+  /* 手机上省掉 @ 前缀，给地名腾一个字符宽度 */
+  .bmeta .at {
+    display: none;
   }
 
   .cl-grid {

@@ -17,6 +17,19 @@ const emit = defineEmits(['create', 'select', 'sample'])
 // 浏览模式下点块可展开/收起（地点或课程名被截断时看全文）
 const expandedKey = ref('')
 
+// 把地点拆成 楼名 / 房号前缀 / 房号，手机上分行显示
+function roomParts(room) {
+  const text = String(room || '').trim()
+  if (!text) return []
+  const at = text.indexOf('楼')
+  const building = at >= 0 ? text.slice(0, at + 1) : ''
+  const rest = at >= 0 ? text.slice(at + 1) : text
+  const dash = rest.indexOf('-')
+  const head = dash >= 0 ? rest.slice(0, dash + 1) : rest
+  const tail = dash >= 0 ? rest.slice(dash + 1) : ''
+  return [building, head, tail].filter(Boolean)
+}
+
 function onBlockClick(block) {
   if (props.editable) {
     emit('select', block)
@@ -105,7 +118,14 @@ function cardStyle(block) {
       >
         <div class="bcard" :style="cardStyle(block)">
           <div class="bname">{{ block.name }}</div>
-          <div v-if="block.span >= 2 && block.room" class="bmeta">@{{ block.room }}</div>
+          <div v-if="block.span >= 2 && block.room" class="bmeta">
+            <span class="at">@</span><span
+              v-for="(part, i) in roomParts(block.room)"
+              :key="i"
+              class="rp"
+              >{{ part }}</span
+            >
+          </div>
         </div>
       </div>
     </div>
