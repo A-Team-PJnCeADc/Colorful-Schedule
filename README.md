@@ -56,7 +56,7 @@ npm run build      # 产物 dist/index.html（单文件，样式脚本全内联�
 ## 私有课表：构建期加密，dist 里只有密文
 
 - `scripts/encrypt-schedule.mjs` 在 `npm run dev` / `npm run build` 前执行：读 `src/data/mySchedule.json`，用它的 `uuid` 作口令，PBKDF2-SHA256(150k) 派生密钥 + AES-256-GCM 加密 `{settings, courses}`，输出 `src/data/mySchedule.enc.json`（只含 base64 密文、salt、iv）。构建产物里不会出现任何课程明文。
-- 打开 `?uuid=<密钥>` 时，浏览器取密文 → 同样的 PBKDF2 → AES-GCM 解密 → 成功则用解出的数据，失败（或没带密钥）用 `examplemyschedule.json` 并提示。
+- 打开 `?uuid=<密钥>` 时，浏览器取密文 → 同样的 PBKDF2 → AES-GCM 解密 → 成功则用解出的数据，失败（或没带密钥）静默使用 `examplemyschedule.json`，不弹任何提示。
 - 密钥刷新规则：与上次使用的密钥不同（首次访问也算）→ 立即丢弃该密钥的本地存档、以解密结果为准；密钥未变 → 沿用本机改动。上次使用的标识存在 `class-schedule:lastkey`，只存密钥的 SHA-256 前 12 位，不存密钥本身。
 - 解密成功后存档键切换为 `class-schedule:v1:<sha256(密钥) 前 12 位>`，密钥本身不写进 localStorage；不带 `?uuid=` 时只读示例数据自己的存档（旧版本遗留的 `class-schedule:v1` 不再回落，避免无密钥时读到私有课表）。
 - 没有 `mySchedule.json` 的机器（公开仓库/CI）构建时沿用已有 `mySchedule.enc.json`；仓库默认两样都不含（都在 `.gitignore` 里），因此公开部署只有示例数据。

@@ -141,7 +141,7 @@ async function initSecureSeed() {
   const key = readUuidParam()
   if (!key) return
   if (!ENCRYPTED_SEED) {
-    toast('没有打包加密课表')
+    booting.value = false
     return
   }
   try {
@@ -158,10 +158,8 @@ async function initSecureSeed() {
     markKeyUsed(id)
     applyTheme()
     week.value = clampWeek(weekOfDate(next.settings.startDate, todayISO()))
-    toast(force ? `已按新密钥刷新课表（${next.courses.length} 门）` : `已解密课表（${next.courses.length} 门）`)
   } catch (err) {
     console.warn(err)
-    toast('密钥不正确，已显示示例课表')
   } finally {
     booting.value = false
   }
